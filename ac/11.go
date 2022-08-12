@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func maxArea(height []int) int {
     i, j := 0, len(height)-1
