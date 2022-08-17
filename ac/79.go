@@ -1,4 +1,4 @@
-package algo
+package ac
 
 var dir = [][]int{{-1, 0}, {0, -1}, {0, 1}, {1, 0}}
 var rows int

@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func sortColors(nums []int) {
     p0, p1 := 0, 0
