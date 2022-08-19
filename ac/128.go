@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func longestConsecutive(nums []int) int {
     if len(nums) == 0 {

@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func wordBreak(s string, wordDict []string) bool {
     m := map[string]bool{}

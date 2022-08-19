@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func detectCycle(head *ListNode) *ListNode {
     vd := map[*ListNode]bool{}

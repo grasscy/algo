@@ -1,31 +1,23 @@
 package ac
 
-// opt
 func longestPalindrome(s string) string {
-    dp := make([][]bool, len(s))
-    max := 1
-    ret := string(s[0])
-    for i := 0; i < len(s); i++ {
-        dp[i] = make([]bool, len(s))
-        dp[i][i] = true
-    }
+    start, end := 0, 0
 
-    for j := 1; j < len(s); j++ {
-        for i := 0; i < j; i++ {
-            if s[i] != s[j] {
-                dp[i][j] = false
-            } else {
-                if j-1-(i+1)+1 < 2 {
-                    dp[i][j] = true
-                } else {
-                    dp[i][j] = dp[i+1][j-1]
-                }
-            }
-            if dp[i][j] && j-i+1 > max {
-                max = j - i + 1
-                ret = s[i : j+1]
-            }
+    for i := 0; i < len(s); i++ {
+        l1, r1 := expand(s, i, i)
+        l2, r2 := expand(s, i, i+1)
+        if r1-l1 > end-start {
+            start, end = l1, r1
+        }
+        if r2-l2 > end-start {
+            start, end = l2, r2
         }
     }
-    return ret
+    return s[start : end+1]
+}
+
+func expand(s string, l, r int) (int, int) {
+    for ; l >= 0 && r < len(s) && s[l] == s[r]; l, r = l-1, r+1 {
+    }
+    return l + 1, r - 1
 }
