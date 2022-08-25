@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func canBeEqual(target []int, arr []int) bool {
 	m := map[int]int{}

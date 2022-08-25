@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func findDuplicate(nums []int) int {
 	slow := nums[0]

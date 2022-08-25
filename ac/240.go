@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func searchMatrix(matrix [][]int, target int) bool {
 	i := 0

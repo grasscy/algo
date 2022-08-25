@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func productExceptSelf(nums []int) []int {
 	r := make([]int, len(nums))
