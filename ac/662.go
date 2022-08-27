@@ -1,4 +1,4 @@
-package algo
+package ac
 
 type pair struct {
 	node  *TreeNode
