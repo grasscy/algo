@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func validateStackSequences(pushed []int, popped []int) bool {
 	st := []int{}
