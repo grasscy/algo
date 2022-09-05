@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func numSpecial(mat [][]int) int {
 	rows := make([]int, len(mat))

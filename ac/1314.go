@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func matrixBlockSum(mat [][]int, k int) [][]int {
 	pre := make([][]int, len(mat)+1)
