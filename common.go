@@ -38,6 +38,20 @@ func buildTree(nums []interface{}) *TreeNode {
 	return build(nums, 0)
 }
 
+func buildList(nums []int) *ListNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	head := &ListNode{nums[0], nil}
+	cur := head
+	for i := 1; i < len(nums); i++ {
+		n := &ListNode{nums[i], nil}
+		cur.Next = n
+		cur = n
+	}
+	return head
+}
+
 func max(x, y int) int {
 	if x > y {
 		return x

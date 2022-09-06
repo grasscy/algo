@@ -5,21 +5,21 @@ import (
 	"testing"
 )
 
-func Test_buildTree(t *testing.T) {
+func Test_buildList(t *testing.T) {
 	type args struct {
-		root []interface{}
+		nums []int
 	}
 	tests := []struct {
 		name string
 		args args
-		want *TreeNode
+		want *ListNode
 	}{
-		{"", args{[]interface{}{10, 5, -3, 3, 2, "null", 11, 3, -2, "null", 1}}, nil},
+		{"", args{[]int{1, 2, 3, 4, 5}}, nil},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := buildTree(tt.args.root); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("buildTree() = %v, want %v", got, tt.want)
+			if got := buildList(tt.args.nums); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("buildList() = %v, want %v", got, tt.want)
 			}
 		})
 	}
