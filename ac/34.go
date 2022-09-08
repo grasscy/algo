@@ -1,43 +1,40 @@
 package ac
 
 func searchRange(nums []int, target int) []int {
-    //leftmost := sort.SearchInts(nums, target)
-    //if leftmost == len(nums) || nums[leftmost] != target {
-    //    return []int{-1, -1}
-    //}
-    //rightmost := sort.SearchInts(nums, target + 1) - 1
-    //return []int{leftmost, rightmost}
+	left, right := 0, len(nums)-1
+	start, end := 0, 0
+	for left <= right {
+		mid := (left + right) / 2
+		if nums[mid] == target {
+			right = mid - 1
+		} else if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	if left >= len(nums) || nums[left] != target {
+		start = -1
+	} else {
+		start = left
+	}
 
-    lo, hi, mid := 0, len(nums)-1, 0
-    r := -1
-    for lo <= hi {
-        mid = lo + (hi-lo)/2
-        if nums[mid] == target {
-            r = mid
-            break
-        }
-        if nums[mid] > target {
-            hi = mid - 1
-        } else {
-            lo = mid + 1
-        }
+	left, right = 0, len(nums)-1
+	for left <= right {
+		mid := (left + right) / 2
+		if nums[mid] == target {
+			left = mid + 1
+		} else if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	if left-1 < 0 || nums[left-1] != target {
+		end = -1
+	} else {
+		end = left - 1
+	}
 
-    }
-    if r == -1 {
-        return []int{-1, -1}
-    }
-    i, j := r, r
-    for nums[i] == target {
-        i--
-        if i < 0 {
-            break
-        }
-    }
-    for nums[j] == target {
-        j++
-        if j >= len(nums) {
-            break
-        }
-    }
-    return []int{i + 1, j - 1}
+	return []int{start, end}
 }
