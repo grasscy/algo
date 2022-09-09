@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func shipWithinDays(weights []int, days int) int {
 

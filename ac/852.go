@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func peakIndexInMountainArray(arr []int) int {
 	left, right := 0, len(arr)

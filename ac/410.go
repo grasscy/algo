@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func splitArray(nums []int, m int) int {
 	left, right := nums[0], 0

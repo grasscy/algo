@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func minEatingSpeed(piles []int, h int) int {
 	left, right := 1, int(10e9+1)
