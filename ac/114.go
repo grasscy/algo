@@ -1,18 +1,20 @@
 package ac
 
 func flatten(root *TreeNode) {
-    for root != nil {
-        if root.Left == nil {
-            root = root.Right
-        } else {
-            pre := root.Left
-            for pre.Right != nil {
-                pre = pre.Right
-            }
-            pre.Right = root.Right
-            root.Right = root.Left
-            root.Left = nil
-            root = root.Right
-        }
-    }
+	if root == nil {
+		return
+	}
+	flatten(root.Left)
+	flatten(root.Right)
+
+	left := root.Left
+	right := root.Right
+
+	root.Left = nil
+	root.Right = left
+	pre := left
+	for pre.Right != nil {
+		pre = pre.Right
+	}
+	pre.Right = right
 }
