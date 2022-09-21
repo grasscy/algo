@@ -1,14 +1,31 @@
 package ac
 
-// opt
+var memo [][]int
+
 func numTrees(n int) int {
-    dp := make([]int, n+1)
-    dp[0] = 1
-    dp[1] = 1
-    for i := 2; i < n+1; i++ {
-        for j := 1; j < i+1; j++ {
-            dp[i] += dp[j-1] * dp[i-j]
-        }
-    }
-    return dp[n]
+	memo = make([][]int, n+1)
+	for i := 0; i < len(memo); i++ {
+		memo[i] = make([]int, n+1)
+	}
+
+	return count(1, n)
+}
+
+func count(lo int, hi int) int {
+	if lo >= hi {
+		return 1
+	}
+
+	if memo[lo][hi] != 0 {
+		return memo[lo][hi]
+	}
+
+	ans := 0
+	for i := lo; i <= hi; i++ {
+		left := count(lo, i-1)
+		right := count(i+1, hi)
+		ans += left * right
+	}
+	memo[lo][hi] = ans
+	return ans
 }

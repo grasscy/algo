@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func generateTrees(n int) []*TreeNode {
 	return generate(1, n)

@@ -1,28 +1,28 @@
 package ac
 
-var r [][]int
-var used []int
+var used map[int]bool
+var ans [][]int
 
 func permute(nums []int) [][]int {
-    r = [][]int{}
-    used = make([]int, len(nums))
-    ff(nums, []int{}, used)
-    return r
+	ans = [][]int{}
+	used = map[int]bool{}
+	backtrack(nums, 0, []int{})
+	return ans
 }
 
-func ff(nums []int, path []int, used []int) {
-    if len(path) == len(nums) {
-        r = append(r, append([]int{}, path...))
-    }
-    for i := 0; i < len(nums); i++ {
-        if used[i] == 1 {
-            continue
-        }
-        path = append(path, nums[i])
-        used[i] = 1
-        ff(nums, path, used)
-        path = path[:len(path)-1]
-        used[i] = 0
-    }
-
+func backtrack(nums []int, n int, path []int) {
+	if n == len(nums) {
+		ans = append(ans, append([]int{}, path...))
+		return
+	}
+	for i := 0; i < len(nums); i++ {
+		if used[nums[i]] {
+			continue
+		}
+		used[nums[i]] = true
+		path = append(path, nums[i])
+		backtrack(nums, n+1, path)
+		used[nums[i]] = false
+		path = path[:len(path)-1]
+	}
 }

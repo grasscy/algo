@@ -3,30 +3,33 @@ package ac
 import "math/rand"
 
 func findKthLargest(nums []int, k int) int {
-	return qSelect(nums, 0, len(nums)-1, len(nums)-k)
-}
 
-func qSelect(a []int, l, r int, index int) int {
-	q := partition(a, l, r)
-	if q == index {
-		return a[q]
-	} else if q < index {
-		return qSelect(a, q+1, r, index)
-	}
-	return qSelect(a, l, q-1, index)
-}
-
-func partition(a []int, l, r int) int {
-	q := rand.Intn(r-l+1) + l
-	a[r], a[q] = a[q], a[r]
-
-	i := l - 1
-	for j := l; j < r; j++ {
-		if a[j] < a[r] {
-			i++
-			a[i], a[j] = a[j], a[i]
+	lo, hi := 0, len(nums)-1
+	for lo <= hi {
+		p := qs(nums, lo, hi)
+		if p == len(nums)-k {
+			return nums[p]
+		} else if p < len(nums)-k {
+			lo = p + 1
+		} else {
+			hi = p - 1
 		}
 	}
-	a[i+1], a[r] = a[r], a[i+1]
-	return i + 1
+	return -1
+}
+
+func qs(nums []int, lo int, hi int) int {
+	p := rand.Intn(hi-lo+1) + lo
+	nums[p], nums[lo] = nums[lo], nums[p]
+
+	pivot := nums[lo]
+	lt := lo
+	for i := lo + 1; i <= hi; i++ {
+		if nums[i] < pivot {
+			lt++
+			nums[i], nums[lt] = nums[lt], nums[i]
+		}
+	}
+	nums[lt], nums[lo] = nums[lo], nums[lt]
+	return lt
 }
