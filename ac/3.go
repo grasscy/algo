@@ -1,24 +1,21 @@
 package ac
 
 func lengthOfLongestSubstring(s string) int {
-	if len(s) == 0 {
-		return 0
-	}
-	ans := 1
-	l := 0
-	m := map[uint8]bool{}
-	count := 0
-	for r := l; r < len(s); r++ {
-		for m[s[r]] == true {
-			delete(m, s[l])
+	l, r := 0, 0
+	count := map[string]int{}
+	ans := 0
+	for ; r < len(s); r++ {
+		c := string(s[r])
+		for count[c] != 0 {
+			lc := string(s[l])
+			count[lc]--
 			l++
-			count--
 		}
-		m[s[r]] = true
-		count++
-		if count > ans {
-			ans = count
+		count[c]++
+		if r-l+1 > ans {
+			ans = r - l + 1
 		}
+
 	}
 	return ans
 }

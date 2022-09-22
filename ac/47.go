@@ -1,11 +1,14 @@
 package ac
 
+import "sort"
+
 var ans [][]int
 var vis []bool
 
-func permute(nums []int) [][]int {
+func permuteUnique(nums []int) [][]int {
 	ans = [][]int{}
 	vis = make([]bool, len(nums))
+	sort.Ints(nums)
 	b(nums, []int{})
 	return ans
 }
@@ -16,6 +19,9 @@ func b(nums []int, cur []int) {
 	}
 	for i := 0; i < len(nums); i++ {
 		if vis[i] {
+			continue
+		}
+		if i > 0 && nums[i] == nums[i-1] && !vis[i-1] {
 			continue
 		}
 		vis[i] = true
