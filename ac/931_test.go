@@ -11,9 +11,7 @@ func Test_minFallingPathSum(t *testing.T) {
 		args args
 		want int
 	}{
-		{"", args{[][]int{{2,1,3}, {6,5,4}, {7,8,9}}}, 13},
-		{"", args{[][]int{{-19,57}, {-40,-5}}}, -59},
-
+		{"", args{[][]int{{2, 1, 3}, {6, 5, 4}, {7, 8, 9}}}, 13},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

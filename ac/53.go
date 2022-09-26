@@ -1,18 +1,17 @@
 package ac
 
 func maxSubArray(nums []int) int {
-    max := nums[0]
-    pre := nums[0]
-    for i := 1; i < len(nums); i++ {
-        if pre > 0 {
-            pre = pre + nums[i]
-        } else {
-            pre = nums[i]
-        }
-        if pre > max {
-            max = pre
-        }
-    }
+	dp := make([]int, len(nums))
+	dp[0] = nums[0]
+	pre := dp[0]
+	for i := 1; i < len(nums); i++ {
+		dp[i] = max(pre+nums[i], nums[i])
+		pre = dp[i]
+	}
 
-    return max
+	ans := nums[0]
+	for i := 1; i < len(nums); i++ {
+		ans = max(ans, dp[i])
+	}
+	return ans
 }
