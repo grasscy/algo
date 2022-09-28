@@ -65,3 +65,25 @@ func min(x, y int) int {
 	}
 	return y
 }
+
+func fill1(array []int, n int) {
+	for i := 0; i < len(array); i++ {
+		array[i] = n
+	}
+}
+
+func fill2(array [][]int, n int) {
+	for i := 0; i < len(array); i++ {
+		for j := 0; j < len(array[i]); j++ {
+			array[i][j] = n
+		}
+	}
+}
+
+func initArray(m, n int) [][]int {
+	ret := make([][]int, m)
+	for i := 0; i < len(ret); i++ {
+		ret[i] = make([]int, n)
+	}
+	return ret
+}

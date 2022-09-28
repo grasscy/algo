@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func isValidSudoku(board [][]byte) bool {
 	raw := make([]map[byte]bool, 10)
