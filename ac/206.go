@@ -1,14 +1,11 @@
 package ac
 
 func reverseList(head *ListNode) *ListNode {
-
-    var pre *ListNode
-    cur := head
-    for cur != nil {
-        next := cur.Next
-        cur.Next = pre
-        pre = cur
-        cur = next
-    }
-    return pre
+	if head == nil {
+		return head
+	}
+	h := reverseList(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return h
 }
