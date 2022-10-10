@@ -1,18 +1,11 @@
 package ac
 
-import "math"
-
 func maxProfit(prices []int) int {
-    max := 0
-    minp := math.MaxInt32
-    for _, v := range prices {
-        if v-minp > max {
-            max = v - minp
-        }
-
-        if v < minp {
-            minp = v
-        }
-    }
-    return max
+	pre0 := 0
+	pre1 := -prices[0]
+	for i := 1; i < len(prices); i++ {
+		pre0 = max(pre0, pre1+prices[i])
+		pre1 = max(pre1, -prices[i])
+	}
+	return pre0
 }
