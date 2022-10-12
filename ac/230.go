@@ -1,24 +1,24 @@
 package ac
 
 var count int
-var res int
+var ans int
 
 func kthSmallest(root *TreeNode, k int) int {
 	count = 0
-	res = 0
-	traverse(root, k)
-	return res
+	ans = -1
+
+	tra(root, k)
+	return ans
 }
 
-func traverse(root *TreeNode, k int) {
+func tra(root *TreeNode, k int) {
 	if root == nil {
 		return
 	}
-	traverse(root.Left, k)
+	tra(root.Left, k)
 	count++
 	if count == k {
-		res = root.Val
-		return
+		ans = root.Val
 	}
-	traverse(root.Right, k)
+	tra(root.Right, k)
 }
