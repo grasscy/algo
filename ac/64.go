@@ -1,29 +1,27 @@
 package ac
 
+import "math"
+
+var memo [][]int
+
 func minPathSum(grid [][]int) int {
-    m := len(grid)
-    n := len(grid[0])
-    dp := make([][]int, m)
-    dp[0] = make([]int, n)
-    dp[0][0] = grid[0][0]
+	memo = initArray(len(grid), len(grid[0]))
+	fill2(memo, -1)
+	return dp(grid, len(grid)-1, len(grid[0])-1)
+}
 
-    for i := 1; i < m; i++ {
-        dp[i] = make([]int, n)
-        dp[i][0] = dp[i-1][0] + grid[i][0]
-    }
-    for j := 1; j < n; j++ {
-        dp[0][j] = dp[0][j-1] + grid[0][j]
-    }
+func dp(grid [][]int, i, j int) int {
+	if i == 0 && j == 0 {
+		return grid[0][0]
+	}
+	if i < 0 || j < 0 {
+		return math.MaxInt32
+	}
+	if memo[i][j] != -1 {
+		return memo[i][j]
+	}
 
-    for i := 1; i < m; i++ {
-        for j := 1; j < n; j++ {
-            if dp[i-1][j] > dp[i][j-1] {
-                dp[i][j] = dp[i][j-1] + grid[i][j]
-            } else {
-                dp[i][j] = dp[i-1][j] + grid[i][j]
-
-            }
-        }
-    }
-    return dp[m-1][n-1]
+	ans := min(dp(grid, i-1, j), dp(grid, i, j-1)) + grid[i][j]
+	memo[i][j] = ans
+	return ans
 }
