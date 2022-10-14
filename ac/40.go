@@ -5,32 +5,32 @@ import (
 )
 
 var ans [][]int
-var vis []bool
+var visit []bool
 
 func combinationSum2(candidates []int, target int) [][]int {
 	ans = [][]int{}
-	vis = make([]bool, len(candidates))
+	visit = make([]bool, len(candidates))
 	sort.Ints(candidates)
-	b(candidates, target, 0, []int{}, 0)
+	b(candidates, target, []int{}, 0, 0)
 	return ans
 }
 
-func b(candidates []int, target int, sum int, cur []int, start int) {
+func b(candidates []int, target int, tmp []int, sum int, index int) {
 	if sum == target {
-		ans = append(ans, append([]int{}, cur...))
+		ans = append(ans, append([]int{}, tmp...))
 		return
 	}
 	if sum > target {
 		return
 	}
-	for i := start; i < len(candidates); i++ {
-		if vis[i] || (i > start && candidates[i] == candidates[i-1]) {
+	for i := index; i < len(candidates); i++ {
+		if i > index && candidates[i] == candidates[i-1] {
 			continue
 		}
-		vis[i] = true
-		cur = append(cur, candidates[i])
-		b(candidates, target, sum+candidates[i], cur, i+1)
-		cur = cur[:len(cur)-1]
-		vis[i] = false
+		sum += candidates[i]
+		tmp = append(tmp, candidates[i])
+		b(candidates, target, tmp, sum, i+1)
+		tmp = tmp[:len(tmp)-1]
+		sum -= candidates[i]
 	}
 }

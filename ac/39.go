@@ -4,20 +4,23 @@ var ans [][]int
 
 func combinationSum(candidates []int, target int) [][]int {
 	ans = [][]int{}
-	b(candidates, target, 0, []int{}, 0)
+	b(candidates, target, []int{}, 0, 0)
 	return ans
 }
 
-func b(candidates []int, target int, sum int, cur []int, start int) {
+func b(candidates []int, target int, tmp []int, sum int, index int) {
 	if sum == target {
-		ans = append(ans, append([]int{}, cur...))
+		ans = append(ans, append([]int{}, tmp...))
+		return
 	}
 	if sum > target {
 		return
 	}
-	for i := start; i < len(candidates); i++ {
-		cur = append(cur, candidates[i])
-		b(candidates, target, sum+candidates[i], cur, i)
-		cur = cur[:len(cur)-1]
+	for i := index; i < len(candidates); i++ {
+		sum += candidates[i]
+		tmp = append(tmp, candidates[i])
+		b(candidates, target, tmp, sum, i)
+		tmp = tmp[:len(tmp)-1]
+		sum -= candidates[i]
 	}
 }

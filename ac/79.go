@@ -1,54 +1,52 @@
 package ac
 
-var dir = [][]int{{-1, 0}, {0, -1}, {0, 1}, {1, 0}}
-var rows int
-var cols int
-var word string
-var board [][]byte
 var visited [][]bool
 
-func exist(board1 [][]byte, word1 string) bool {
-    board = board1
-    word = word1
-    rows = len(board)
-    cols = len(board[0])
+func exist(board [][]byte, word string) bool {
+	visited = make([][]bool, len(board))
+	for i := 0; i < len(board); i++ {
+		visited[i] = make([]bool, len(board[0]))
+	}
 
-    visited = make([][]bool, rows)
-    for i := 0; i < rows; i++ {
-        visited[i] = make([]bool, cols)
-    }
-
-    for i := 0; i < rows; i++ {
-        for j := 0; j < cols; j++ {
-            if dfs(i, j, 0) {
-                return true
-            }
-        }
-    }
-    return false
+	for i := 0; i < len(board); i++ {
+		for j := 0; j < len(board[0]); j++ {
+			if b(board, word, "", i, j, 0) {
+				return true
+			}
+		}
+	}
+	return false
 }
 
-func dfs(x int, y int, begin int) bool {
-    if begin == len(word)-1 {
-        return board[x][y] == word[begin]
-    }
-    if board[x][y] == word[begin] {
-        visited[x][y] = true
-        for _, d := range dir {
-            nx := x + d[0]
-            ny := y + d[1]
-            if in(nx, ny) {
-                if !visited[nx][ny] && dfs(nx, ny, begin+1) {
-                    return true
-                }
-            }
-        }
-        visited[x][y] = false
-    }
+func b(board [][]byte, word string, tmp string, row, col int, index int) bool {
+	if len(tmp) >= len(word) {
+		return true
+	}
 
-    return false
-}
-
-func in(i, j int) bool {
-    return i >= 0 && i < rows && j >= 0 && j < cols
+	if row < 0 || row >= len(board) || col < 0 || col >= len(board[0]) {
+		return false
+	}
+	if visited[row][col] {
+		return false
+	}
+	if board[row][col] != word[index] {
+		return false
+	}
+	visited[row][col] = true
+	tmp += string(board[row][col])
+	if b(board, word, tmp, row-1, col, index+1) {
+		return true
+	}
+	if b(board, word, tmp, row+1, col, index+1) {
+		return true
+	}
+	if b(board, word, tmp, row, col+1, index+1) {
+		return true
+	}
+	if b(board, word, tmp, row, col-1, index+1) {
+		return true
+	}
+	tmp = tmp[:len(tmp)-1]
+	visited[row][col] = false
+	return false
 }

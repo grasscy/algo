@@ -4,17 +4,19 @@ var ans [][]int
 
 func allPathsSourceTarget(graph [][]int) [][]int {
 	ans = [][]int{}
-	dfs(graph, 0, []int{})
+	dfs(graph, []int{0}, 0)
 	return ans
 }
 
-func dfs(graph [][]int, i int, path []int) {
-	path = append(path, i)
-	if i == len(graph)-1 {
-		ans = append(ans, append([]int{}, path...))
+func dfs(graph [][]int, tmp []int, index int) {
+	if len(graph)-1 == index {
+		ans = append(ans, append([]int{}, tmp...))
+		return
 	}
-	for _, v := range graph[i] {
-		dfs(graph, v, path)
+
+	for i := 0; i < len(graph[index]); i++ {
+		tmp = append(tmp, graph[index][i])
+		dfs(graph, tmp, graph[index][i])
+		tmp = tmp[:len(tmp)-1]
 	}
-	path = path[:len(path)-1]
 }
