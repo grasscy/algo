@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func integerReplacement(n int) int {
 	ans := 0

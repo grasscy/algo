@@ -1,26 +1,29 @@
 package ac
 
-var sm map[int]int
+var count int
 
 func pathSum(root *TreeNode, targetSum int) int {
-	sm = map[int]int{}
-	sm[0] = 1
-	return dfs(root, 0, targetSum)
+	count = 0
+	return sum(root, targetSum)
 }
 
-func dfs(root *TreeNode, cursum int, targetSum int) int {
+func sum(root *TreeNode, targetSum int) int {
 	if root == nil {
 		return 0
 	}
-	res := 0
-	cursum += root.Val
+	d(root, targetSum)
+	sum(root.Left, targetSum)
+	sum(root.Right, targetSum)
+	return count
+}
 
-	res += sm[cursum-targetSum]
-
-	sm[cursum]++
-	res += dfs(root.Left, cursum, targetSum)
-	res += dfs(root.Right, cursum, targetSum)
-	sm[cursum]--
-
-	return res
+func d(root *TreeNode, targetSum int) {
+	if root == nil {
+		return
+	}
+	if root.Val == targetSum {
+		count++
+	}
+	d(root.Left, targetSum-root.Val)
+	d(root.Right, targetSum-root.Val)
 }
