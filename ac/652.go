@@ -6,23 +6,21 @@ var m map[string]int
 var ans []*TreeNode
 
 func findDuplicateSubtrees(root *TreeNode) []*TreeNode {
-	ans = []*TreeNode{}
 	m = map[string]int{}
-	traverse(root)
+	ans = []*TreeNode{}
+	d(root)
 	return ans
 }
 
-func traverse(node *TreeNode) string {
-	res := ""
-	if node == nil {
-		return ""
+func d(r *TreeNode) string {
+	if r == nil {
+		return ","
 	}
-	res += strconv.Itoa(node.Val)
-	res += "," + traverse(node.Left)
-	res += "," + traverse(node.Right)
-
-	if v, _ := m[res]; v == 1 {
-		ans = append(ans, node)
+	res := strconv.Itoa(r.Val) + ","
+	res += d(r.Left)
+	res += d(r.Right)
+	if m[res] == 1 {
+		ans = append(ans, r)
 	}
 	m[res]++
 	return res

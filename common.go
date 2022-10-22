@@ -17,25 +17,41 @@ type TreeNode struct {
 }
 
 func buildTree(nums []interface{}) *TreeNode {
-	var build func(nums []interface{}, index int) *TreeNode
-	build = func(nums []interface{}, index int) *TreeNode {
-		if index >= len(nums) {
-			return nil
-		}
-		s := fmt.Sprintf("%v", nums[index])
-		if s == "null" {
-			return nil
-		} else {
-			atoi, _ := strconv.Atoi(s)
-
-			r := &TreeNode{Val: atoi}
-			r.Left = build(nums, 2*index+1)
-			r.Right = build(nums, 2*index+2)
-			return r
-		}
+	if len(nums) == 0 {
+		return nil
 	}
 
-	return build(nums, 0)
+	ton := func(i interface{}) int {
+		sprintf := fmt.Sprintf("%v", i)
+		rv, _ := strconv.Atoi(sprintf)
+		return rv
+	}
+
+	root := &TreeNode{Val: ton(nums[0])}
+	q := []*TreeNode{root}
+	i := 1
+	for i < len(nums) {
+		n := len(q)
+		for j := 0; j < n; j++ {
+			t := q[0]
+			q = q[1:]
+			for k := 0; k < 2 && i < len(nums); k++ {
+				v := nums[i]
+				var nn *TreeNode
+				if v != "null" {
+					nn = &TreeNode{Val: ton(v)}
+					q = append(q, nn)
+				}
+				if k == 0 {
+					t.Left = nn
+				} else {
+					t.Right = nn
+				}
+				i++
+			}
+		}
+	}
+	return root
 }
 
 func buildList(nums []int) *ListNode {
