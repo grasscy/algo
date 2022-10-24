@@ -1,26 +1,22 @@
 package ac
 
 func constructMaximumBinaryTree(nums []int) *TreeNode {
-	r := build(nums, 0, len(nums))
-	return r
-}
-
-func build(nums []int, start, end int) *TreeNode {
-	if start >= end {
+	if len(nums) == 0 {
 		return nil
 	}
+	index := findMax(nums)
+	root := &TreeNode{Val: nums[index]}
+	root.Left = constructMaximumBinaryTree(nums[:index])
+	root.Right = constructMaximumBinaryTree(nums[index+1:])
+	return root
+}
 
-	max := nums[start]
-	index := start
-	for i := start; i < end; i++ {
-		if max < nums[i] {
-			max = nums[i]
-			index = i
+func findMax(nums []int) int {
+	m := 0
+	for i, v := range nums {
+		if v > nums[m] {
+			m = i
 		}
 	}
-
-	root := &TreeNode{Val: max}
-	root.Left = build(nums, start, index)
-	root.Right = build(nums, index+1, end)
-	return root
+	return m
 }
