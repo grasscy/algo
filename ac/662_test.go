@@ -3,46 +3,25 @@ package ac
 import "testing"
 
 func Test_widthOfBinaryTree(t *testing.T) {
-	n1 := &TreeNode{
-		Val:   1,
-		Left:  nil,
-		Right: nil,
+	type args struct {
+		root *TreeNode
 	}
-	n2 := &TreeNode{
-		Val:   2,
-		Left:  nil,
-		Right: nil,
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{"", args{buildTree([]interface{}{1, 3, 2, 5, "null", "null", 9, 6, "null", 7})}, 7},
+		{"", args{buildTree([]interface{}{0, 0, 0, "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null", "null", 0, 0, "null"})}, 2},
+		{"", args{buildTree([]interface{}{1, 1, 1, 1, 1, 1, 1, "null", "null", "null", 1, "null", "null", "null", "null", 2, 2, 2, 2, 2, 2, 2, "null", 2, "null", "null", 2, "null", 2})}, 8},
+		{"", args{buildTree([]interface{}{1, 3, 2, 5, 3, "null", 9})}, 4},
+		{"", args{buildTree([]interface{}{1, 3, 2, 5})}, 2},
 	}
-	n3 := &TreeNode{
-		Val:   3,
-		Left:  nil,
-		Right: nil,
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := widthOfBinaryTree(tt.args.root); got != tt.want {
+				t.Errorf("widthOfBinaryTree() = %v, want %v", got, tt.want)
+			}
+		})
 	}
-	n6 := &TreeNode{
-		Val:   6,
-		Left:  nil,
-		Right: nil,
-	}
-	n5 := &TreeNode{
-		Val:   5,
-		Left:  nil,
-		Right: nil,
-	}
-	n9 := &TreeNode{
-		Val:   9,
-		Left:  nil,
-		Right: nil,
-	}
-	n7 := &TreeNode{
-		Val:   7,
-		Left:  nil,
-		Right: nil,
-	}
-	n1.Left = n3
-	n1.Right = n2
-	n3.Left = n5
-	n5.Left = n6
-	n2.Right = n9
-	n9.Left = n7
-	widthOfBinaryTree(n1)
 }

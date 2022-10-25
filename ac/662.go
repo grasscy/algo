@@ -6,25 +6,22 @@ type pair struct {
 }
 
 func widthOfBinaryTree(root *TreeNode) int {
-	if root == nil {
-		return 0
-	}
-	queue := []*pair{{root, 1}}
-	r := 1
-	for len(queue) != 0 {
-		n := len(queue)
-		r = max(r, queue[len(queue)-1].index-queue[0].index+1)
+	q := []*pair{{root, 0}}
+	ans := 1
+	for len(q) != 0 {
+		n := len(q)
+		ans = max(ans, q[len(q)-1].index-q[0].index+1)
 
 		for i := 0; i < n; i++ {
-			p := queue[0]
-			queue = queue[1:]
-			if p.node.Left != nil {
-				queue = append(queue, &pair{p.node.Left, p.index * 2})
+			t := q[0]
+			q = q[1:]
+			if t.node.Left != nil {
+				q = append(q, &pair{t.node.Left, 2*t.index + 1})
 			}
-			if p.node.Right != nil {
-				queue = append(queue, &pair{p.node.Right, p.index*2 + 1})
+			if t.node.Right != nil {
+				q = append(q, &pair{t.node.Right, 2*t.index + 2})
 			}
 		}
 	}
-	return r
+	return ans
 }

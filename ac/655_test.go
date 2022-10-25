@@ -1,36 +1,32 @@
 package ac
 
 import (
+	"reflect"
 	"testing"
 )
 
 func Test_printTree(t *testing.T) {
-	n1 := &TreeNode{
-		Val:   1,
-		Left:  nil,
-		Right: nil,
+	type args struct {
+		root *TreeNode
 	}
-	n2 := &TreeNode{
-		Val:   2,
-		Left:  nil,
-		Right: nil,
+	tests := []struct {
+		name string
+		args args
+		want [][]string
+	}{
+		{"", args{buildTree([]interface{}{1, 2})}, [][]string{
+			{"", "1", ""},
+			{"2", "", ""}}},
+		{"", args{buildTree([]interface{}{1, 2, 3, "null", 4})}, [][]string{
+			{"", "", "", "1", "", "", ""},
+			{"", "2", "", "", "", "3", ""},
+			{"", "", "4", "", "", "", ""}}},
 	}
-	n3 := &TreeNode{
-		Val:   3,
-		Left:  nil,
-		Right: nil,
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := printTree(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("printTree() = %v, want %v", got, tt.want)
+			}
+		})
 	}
-	n4 := &TreeNode{
-		Val:   4,
-		Left:  nil,
-		Right: nil,
-	}
-
-	n1.Left = n2
-	printTree(n1)
-	n2.Right = n4
-	n1.Right = n3
-	printTree(n1)
-
-
 }
