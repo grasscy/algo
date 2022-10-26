@@ -1,4 +1,4 @@
-package algo
+package ac
 
 func trimBST(root *TreeNode, low int, high int) *TreeNode {
 	if root == nil {

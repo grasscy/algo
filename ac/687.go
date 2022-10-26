@@ -3,28 +3,35 @@ package ac
 var ans int
 
 func longestUnivaluePath(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
 	ans = 0
-
-	dfs(root)
-
+	longest(root)
 	return ans
 }
 
-func dfs(node *TreeNode) int {
-	if node == nil {
+func longest(root *TreeNode) int {
+	if root == nil {
 		return 0
 	}
-	l := dfs(node.Left)
-	r := dfs(node.Right)
+	d(root)
+	longest(root.Left)
+	longest(root.Right)
+	return ans
+}
 
-	l1, r1 := 0, 0
-	if node.Left != nil && node.Left.Val == node.Val {
-		l1 = l + 1
+func d(root *TreeNode) int {
+	if root == nil {
+		return 0
 	}
-	if node.Right != nil && node.Right.Val == node.Val {
-		r1 = r + 1
+	l, r := 0, 0
+	if root.Left != nil && root.Val == root.Left.Val {
+		l = d(root.Left) + 1
 	}
-
-	ans = max(ans, l1+r1)
-	return max(l1, r1)
+	if root.Right != nil && root.Val == root.Right.Val {
+		r = d(root.Right) + 1
+	}
+	ans = max(ans, l+r)
+	return max(l, r)
 }
