@@ -1,18 +1,25 @@
 package ac
 
 func jump(nums []int) int {
-	start := 0
-	end := 0
-	ans := 0
-	for end < len(nums)-1 {
-		mp := 0
-		for i := start; i <= end; i++ {
-			mp = max(mp, i+nums[i])
-		}
-		start = end + 1
-		end = mp
-		ans++
+	if len(nums) == 1 {
+		return 0
 	}
-
-	return ans
+	step := 0
+	start := 0
+	for {
+		end := start + nums[start]
+		if end >= len(nums)-1 {
+			return step + 1
+		}
+		endi := start
+		for i := 1; i <= nums[start]; i++ {
+			if start+i+nums[start+i] > end {
+				end = start + i + nums[start+i]
+				endi = start + i
+			}
+		}
+		start = endi
+		step++
+	}
+	return step
 }
