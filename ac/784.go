@@ -1,4 +1,4 @@
-package algo
+package ac
 
 var ans []string
 
