@@ -13,6 +13,8 @@ func Test_coinChange(t *testing.T) {
 		want int
 	}{
 		{"", args{[]int{1, 2, 5}, 11}, 3},
+		{"", args{[]int{2}, 3}, -1},
+		{"", args{[]int{1}, 0}, 0},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
