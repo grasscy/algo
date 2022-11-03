@@ -27,6 +27,6 @@ func find(m int, n int, maxMove int, startRow int, startColumn int) int {
 	ans += find(m, n, maxMove-1, startRow+1, startColumn)
 	ans += find(m, n, maxMove-1, startRow, startColumn-1)
 	ans += find(m, n, maxMove-1, startRow, startColumn+1)
-	memo[startRow][startColumn][maxMove] = ans % (10e9 + 7)
-	return ans % (10e9 + 7)
+	memo[startRow][startColumn][maxMove] = ans % (10e8 + 7)
+	return ans % (10e8 + 7)
 }
