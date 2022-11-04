@@ -11,6 +11,8 @@ func Test_increasingTriplet(t *testing.T) {
 		args args
 		want bool
 	}{
+		{"", args{[]int{1, 2, 1, 3}}, true},
+		{"", args{[]int{1, 6, 2, 5, 1}}, true},
 		{"", args{[]int{2, 1, 5, 0, 4, 6}}, true},
 		{"", args{[]int{1, 2, 3, 4, 5}}, true},
 		{"", args{[]int{5, 4, 3, 2, 1}}, false},
