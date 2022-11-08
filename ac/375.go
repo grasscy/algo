@@ -1,30 +1,28 @@
 package ac
 
-import (
-	"math"
-)
+import "math"
 
 var memo [][]int
 
 func getMoneyAmount(n int) int {
 	memo = initArray(n+1, n+1)
-	return d(1, n)
+	return dp(1, n)
 }
 
-func d(low int, high int) int {
-	if low >= high {
+func dp(lo, hi int) int {
+	if lo >= hi {
 		return 0
 	}
-
-	if memo[low][high] != 0 {
-		return memo[low][high]
+	if lo == hi-1 {
+		return lo
 	}
-
-	ret := math.MaxInt32
-	for i := low; i <= high; i++ {
-		t := max(d(low, i-1), d(i+1, high)) + i
-		ret = min(ret, t)
+	if memo[lo][hi] != 0 {
+		return memo[lo][hi]
 	}
-	memo[low][high] = ret
-	return ret
+	ans := math.MaxInt32
+	for i := lo; i <= hi; i++ {
+		ans = min(ans, max(dp(lo, i-1), dp(i+1, hi))+i)
+	}
+	memo[lo][hi] = ans
+	return ans
 }
