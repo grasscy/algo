@@ -1,40 +1,33 @@
 package ac
 
-import (
-    "sort"
-)
+import "sort"
 
 func threeSum(nums []int) [][]int {
-    r := [][]int{}
-    sort.Ints(nums)
-    for i := 0; i < len(nums); i++ {
-        if nums[i] > 0 {
-            break
-        }
-        if i > 0 && nums[i] == nums[i-1] {
-            continue
-        }
-        j, k := i+1, len(nums)-1
-        for j < k {
-            sum := nums[i] + nums[j] + nums[k]
-            if sum == 0 {
-                r = append(r, []int{nums[i], nums[j], nums[k]})
-                for j < k && nums[j] == nums[j+1] {
-                    j++
-                }
-                for j < k && nums[k] == nums[k-1] {
-                    k--
-                }
-                j++
-                k--
-            } else if sum < 0 {
-                j++
-            } else {
-                k--
-            }
-        }
+	sort.Ints(nums)
+	ans := [][]int{}
+	for i := 0; i < len(nums)-2; i++ {
+		j, k := i+1, len(nums)-1
+		for j < k {
+			if nums[i]+nums[j]+nums[k] == 0 {
+				ans = append(ans, []int{nums[i], nums[j], nums[k]})
+				for j+1 < len(nums) && nums[j] == nums[j+1] {
+					j++
+				}
+				for k-1 > 0 && nums[k] == nums[k-1] {
+					k--
+				}
+				j++
+				k--
+			} else if nums[i]+nums[j]+nums[k] < 0 {
+				j++
+			} else {
+				k--
+			}
 
-    }
-
-    return r
+		}
+		for i+1 < len(nums) && nums[i] == nums[i+1] {
+			i++
+		}
+	}
+	return ans
 }

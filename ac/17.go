@@ -13,20 +13,20 @@ func letterCombinations(digits string) []string {
 	if len(digits) == 0 {
 		return ans
 	}
-	b(digits, "", 0)
+	d(digits, 0, "")
 	return ans
 }
 
-func b(digits string, tmp string, index int) {
+func d(digits string, index int, tmp string) {
 	if len(tmp) == len(digits) {
 		ans = append(ans, tmp)
 		return
 	}
-	k := ks[toInt(digits[index])]
-	for i := 0; i < len(k); i++ {
-		tmp += string(k[i])
-		b(digits, tmp, index+1)
-		tmp = tmp[:len(tmp)-1]
+	for i := index; i < len(digits); i++ {
+		s := ks[toInt(digits[i])]
+		for j := 0; j < len(s); j++ {
+			d(digits, i+1, tmp+string(s[j]))
+		}
 	}
 }
 

@@ -1,29 +1,26 @@
 package ac
 
-func longestPalindrome(s string) string {
-	ans := string(s[0])
-	for i, _ := range s {
-		i2, i3 := ex(s, i, i)
-		i4, i5 := ex(s, i, i+1)
-		if i3-i2 > len(ans) {
-			ans = s[i2+1 : i3]
-		}
-		if i5-i4 > len(ans) {
-			ans = s[i4+1 : i5]
-		}
-	}
+var mm int
+var ans string
 
+func longestPalindrome(s string) string {
+	mm = 1
+	ans = string(s[0])
+	for i := 0; i < len(s); i++ {
+		f(s, i, i)
+		f(s, i, i+1)
+	}
 	return ans
 }
 
-func ex(s string, i1, i2 int) (int, int) {
-	for i1 >= 0 && i2 < len(s) {
-		if s[i1] == s[i2] {
-			i1--
-			i2++
-		} else {
-			break
-		}
+func f(s string, start int, end int) {
+	for start >= 0 && end < len(s) && s[start] == s[end] {
+		start--
+		end++
 	}
-	return i1, i2
+	a := s[start+1 : end]
+	if len(a) > mm {
+		mm = len(a)
+		ans = a
+	}
 }

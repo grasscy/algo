@@ -1,34 +1,29 @@
 package ac
 
 import (
+	"reflect"
 	"testing"
 )
 
 func Test_removeNthFromEnd(t *testing.T) {
-	n1 := &ListNode{
-		Val:  1,
-		Next: nil,
+	type args struct {
+		head *ListNode
+		n    int
 	}
-	//n2 := &ListNode{
-	//	Val:  2,
-	//	Next: nil,
-	//}
-	//n3 := &ListNode{
-	//	Val:  3,
-	//	Next: nil,
-	//}
-	//n4 := &ListNode{
-	//	Val:  4,
-	//	Next: nil,
-	//}
-	//n5 := &ListNode{
-	//	Val:  5,
-	//	Next: nil,
-	//}
-
-	//n1.Next = n2
-	//n2.Next = n3
-	//n3.Next = n4
-	//n4.Next = n5
-	removeNthFromEnd(n1,1)
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		{"", args{buildList([]int{1}), 1}, nil},
+		{"", args{buildList([]int{1, 2, 3, 4, 5}), 2}, nil},
+		{"", args{buildList([]int{1, 2}), 1}, nil},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := removeNthFromEnd(tt.args.head, tt.args.n); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("removeNthFromEnd() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }

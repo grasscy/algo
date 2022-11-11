@@ -1,18 +1,20 @@
 package ac
 
 func maxArea(height []int) int {
-	l, r := 0, len(height)-1
 	ans := 0
-
+	l, r := 0, len(height)-1
 	for l < r {
-		t := min(height[l], height[r]) * (r - l)
-		ans = max(t, ans)
-		if height[l] > height[r] {
-			r--
-		} else {
+		if height[l] < height[r] {
+			if ans < (r-l)*height[l] {
+				ans = (r - l) * height[l]
+			}
 			l++
+		} else {
+			if ans < (r-l)*height[r] {
+				ans = (r - l) * height[r]
+			}
+			r--
 		}
 	}
 	return ans
-
 }

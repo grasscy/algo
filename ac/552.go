@@ -1,4 +1,4 @@
-package algo
+package ac
 
 var mod int = 1e9 + 7
 var memo [][][]int
