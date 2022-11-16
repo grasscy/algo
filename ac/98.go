@@ -3,15 +3,16 @@ package ac
 import "math"
 
 func isValidBST(root *TreeNode) bool {
-    return f(root, math.MinInt64, math.MaxInt64)
+	return check(root, math.MinInt64, math.MaxInt64)
 }
 
-func f(r *TreeNode, low, hi int) bool {
-    if r == nil {
-        return true
-    }
-    if r.Val <= low || r.Val >= hi {
-        return false
-    }
-    return f(r.Left, low, r.Val) && f(r.Right, r.Val, hi)
+func check(root *TreeNode, lo int, hi int) bool {
+	if root == nil {
+		return true
+	}
+	if root.Val <= lo || root.Val >= hi {
+		return false
+	}
+	return check(root.Left, lo, root.Val) && check(root.Right, root.Val, hi)
+
 }

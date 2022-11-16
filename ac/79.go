@@ -1,52 +1,38 @@
 package ac
 
-var visited [][]bool
+var vis [][]bool
 
 func exist(board [][]byte, word string) bool {
-	visited = make([][]bool, len(board))
+	vis = make([][]bool, len(board))
 	for i := 0; i < len(board); i++ {
-		visited[i] = make([]bool, len(board[0]))
+		vis[i] = make([]bool, len(board[0]))
 	}
-
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[0]); j++ {
-			if b(board, word, "", i, j, 0) {
+			if d(board, word, i, j, 0) {
 				return true
 			}
 		}
+
 	}
 	return false
 }
 
-func b(board [][]byte, word string, tmp string, row, col int, index int) bool {
-	if len(tmp) >= len(word) {
+func d(board [][]byte, word string, ii int, ij int, wi int) bool {
+	if wi == len(word) {
 		return true
 	}
-
-	if row < 0 || row >= len(board) || col < 0 || col >= len(board[0]) {
+	if ii < 0 || ii >= len(board) || ij < 0 || ij >= len(board[0]) || vis[ii][ij] {
 		return false
 	}
-	if visited[row][col] {
+	if board[ii][ij] != word[wi] {
 		return false
 	}
-	if board[row][col] != word[index] {
-		return false
+	vis[ii][ij] = true
+	ans := d(board, word, ii+1, ij, wi+1) || d(board, word, ii-1, ij, wi+1) || d(board, word, ii, ij+1, wi+1) || d(board, word, ii, ij-1, wi+1)
+	if ans {
+		return ans
 	}
-	visited[row][col] = true
-	tmp += string(board[row][col])
-	if b(board, word, tmp, row-1, col, index+1) {
-		return true
-	}
-	if b(board, word, tmp, row+1, col, index+1) {
-		return true
-	}
-	if b(board, word, tmp, row, col+1, index+1) {
-		return true
-	}
-	if b(board, word, tmp, row, col-1, index+1) {
-		return true
-	}
-	tmp = tmp[:len(tmp)-1]
-	visited[row][col] = false
+	vis[ii][ij] = false
 	return false
 }
