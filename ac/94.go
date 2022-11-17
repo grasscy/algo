@@ -1,16 +1,17 @@
 package ac
 
+var ans []int
+
 func inorderTraversal(root *TreeNode) []int {
-    res := []int{}
-    zhongxu(root, &res)
-    return res
+	ans = []int{}
+	return d(root)
 }
 
-func zhongxu(root *TreeNode, res *[]int) {
-    if root == nil {
-        return
-    }
-    zhongxu(root.Left, res)
-    *res = append(*res, root.Val)
-    zhongxu(root.Right, res)
+func d(root *TreeNode) {
+	if root == nil {
+		return
+	}
+	d(root.Left)
+	ans = append(ans, root.Val)
+	d(root.Right)
 }
