@@ -2,13 +2,15 @@ package ac
 
 func dailyTemperatures(temperatures []int) []int {
 	ans := make([]int, len(temperatures))
-	st := []int{}
-	for i := 0; i < len(temperatures); i++ {
-		for len(st) > 0 && temperatures[i] > temperatures[st[len(st)-1]] {
-			ans[st[len(st)-1]] = i - st[len(st)-1]
-			st = st[:len(st)-1]
+	stk := []int{0}
+
+	for i := 1; i < len(temperatures); i++ {
+		for len(stk) > 0 && temperatures[stk[len(stk)-1]] < temperatures[i] {
+			top := stk[len(stk)-1]
+			stk = stk[:len(stk)-1]
+			ans[top] = i - top
 		}
-		st = append(st, i)
+		stk = append(stk, i)
 	}
 	return ans
 }
