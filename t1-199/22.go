@@ -1,31 +1,22 @@
 package pass
 
-var r []string
+var ans []string
 
 func generateParenthesis(n int) []string {
-	r = []string{}
-	if n == 0 {
-		return r
-	}
-	ff(n, "", 0, 0)
-	return r
+	ans = []string{}
+	d(n, "", 0, 0)
+	return ans
 }
 
-//opt
-func ff(n int, s string, open int, close int) {
-	if len(s) == n*2 {
-		r = append(r, s)
+func d(n int, tmp string, l, r int) {
+	if l+r == 2*n {
+		ans = append(ans, tmp)
 		return
 	}
-	if open < n {
-		s += "("
-		ff(n, s, open+1, close)
-		s = s[:len(s)-1]
+	if l < n {
+		d(n, tmp+"(", l+1, r)
 	}
-	if close < open {
-		s += ")"
-		ff(n, s, open, close+1)
-		s = s[:len(s)-1]
+	if r < l {
+		d(n, tmp+")", l, r+1)
 	}
-
 }

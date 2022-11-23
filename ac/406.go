@@ -4,20 +4,22 @@ import "sort"
 
 func reconstructQueue(people [][]int) [][]int {
 	sort.Slice(people, func(i, j int) bool {
-		return people[i][0] > people[j][0] || (people[i][0] == people[j][0] && people[i][1] < people[j][1])
+		if people[i][0] == people[j][0] {
+			return people[i][1] < people[j][1]
+		}
+		return people[i][0] > people[j][0]
 	})
-
-	r := [][]int{}
-
-	for _, v := range people {
-		if len(r) <= v[1] {
-			r = append(r, v)
+	ans := [][]int{}
+	for i := 0; i < len(people); i++ {
+		v := people[i]
+		if v[1] >= len(ans) {
+			ans = append(ans, v)
 		} else {
-			pre := append([][]int{}, r[:v[1]]...)
-			suf := append([][]int{}, r[v[1]:]...)
+			pre := append([][]int{}, ans[:v[1]]...)
+			suf := append([][]int{}, ans[v[1]:]...)
 
-			r = append(append(pre, v), suf...)
+			ans = append(append(pre, v), suf...)
 		}
 	}
-	return r
+	return ans
 }

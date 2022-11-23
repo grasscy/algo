@@ -1,37 +1,43 @@
 package t200_399
 
-import "strconv"
+import (
+	"strconv"
+)
 
 func decodeString(s string) string {
-	res := ""
-	stknum := []int{}
-	stk := []string{}
-
-	num := ""
-
-	for _, v := range s {
+	stkk := []int{}
+	stks := []string{}
+	ans := ""
+	kk := ""
+	for i := 0; i < len(s); i++ {
+		v := s[i]
+		vs := string(v)
 		if '0' <= v && v <= '9' {
-			num += string(v)
+			kk += vs
 		} else if 'a' <= v && v <= 'z' {
-			res += string(v)
+			ans += vs
 		} else if v == '[' {
-			atoi, _ := strconv.Atoi(num)
-			stknum = append(stknum, atoi)
-			stk = append(stk, res)
-			num = ""
-			res = ""
-		} else if v == ']' {
-			tmp := ""
-			n := stknum[len(stknum)-1]
-			stknum = stknum[:len(stknum)-1]
-			for i := 0; i < n; i++ {
-				tmp += res
+			atoi, _ := strconv.Atoi(kk)
+			stkk = append(stkk, atoi)
+			kk = ""
+			stks = append(stks, ans)
+			ans = ""
+		} else {
+			n := stkk[len(stkk)-1]
+			stkk = stkk[:len(stkk)-1]
+			t := ""
+			for n != 0 {
+				t += ans
+				n--
 			}
-			last := stk[len(stk)-1]
-			stk = stk[:len(stk)-1]
-			res = last + tmp
+			ans = t
+			if len(stks) > 0 {
+				top := stks[len(stks)-1]
+				stks = stks[:len(stks)-1]
+				ans = top + ans
+			}
 		}
-
 	}
-	return res
+
+	return ans
 }

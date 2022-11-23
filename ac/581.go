@@ -1,22 +1,23 @@
 package ac
 
 func findUnsortedSubarray(nums []int) int {
-	max, min := nums[0], nums[len(nums)-1]
-	start, end := 0, -1
-
+	l := 0
+	r := -1
+	lmax := nums[0]
 	for i := 0; i < len(nums); i++ {
-		if nums[i] < max {
-			end = i
+		if nums[i] >= lmax {
+			lmax = nums[i]
 		} else {
-			max = nums[i]
-		}
-
-		if nums[len(nums)-1-i] > min {
-			start = len(nums) - 1 - i
-		} else {
-			min = nums[len(nums)-1-i]
+			r = i
 		}
 	}
-	return end - start + 1
-
+	rmin := nums[len(nums)-1]
+	for i := len(nums) - 1; i >= 0; i-- {
+		if nums[i] <= rmin {
+			rmin = nums[i]
+		} else {
+			l = i
+		}
+	}
+	return r - l + 1
 }

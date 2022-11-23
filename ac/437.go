@@ -4,26 +4,26 @@ var count int
 
 func pathSum(root *TreeNode, targetSum int) int {
 	count = 0
-	return sum(root, targetSum)
-}
-
-func sum(root *TreeNode, targetSum int) int {
-	if root == nil {
-		return 0
-	}
-	d(root, targetSum)
-	sum(root.Left, targetSum)
-	sum(root.Right, targetSum)
+	p(root, targetSum)
 	return count
 }
 
-func d(root *TreeNode, targetSum int) {
+func p(root *TreeNode, tg int) {
 	if root == nil {
 		return
 	}
-	if root.Val == targetSum {
+	d(root, tg)
+	p(root.Left, tg)
+	p(root.Right, tg)
+}
+
+func d(root *TreeNode, tg int) {
+	if root == nil {
+		return
+	}
+	if root.Val == tg {
 		count++
 	}
-	d(root.Left, targetSum-root.Val)
-	d(root.Right, targetSum-root.Val)
+	d(root.Left, tg-root.Val)
+	d(root.Right, tg-root.Val)
 }

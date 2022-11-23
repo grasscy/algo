@@ -1,21 +1,21 @@
 package ac
 
-var r int
+var ans int
 
 func diameterOfBinaryTree(root *TreeNode) int {
-	if root == nil {
-		return 0
-	}
-	depth(root)
-	return r
+	ans = 0
+	d(root)
+	return ans
 }
 
-func depth(root *TreeNode) int {
+func d(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	l := depth(root.Right)
-	right := depth(root.Left)
-	r = max(r, l+right+1)
-	return max(l, right) + 1
+	l := d(root.Left)
+	r := d(root.Right)
+
+	ans = max(ans, l+r)
+
+	return max(r, l) + 1
 }
