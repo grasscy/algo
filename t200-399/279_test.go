@@ -11,6 +11,7 @@ func Test_numSquares(t *testing.T) {
 		args args
 		want int
 	}{
+		{"", args{4}, 1},
 		{"", args{12}, 3},
 		{"", args{13}, 2},
 	}
