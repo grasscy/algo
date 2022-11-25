@@ -1,4 +1,4 @@
-package ac
+package jianzhioffer
 
 func constructArr(a []int) []int {
 	ans := make([]int, len(a))

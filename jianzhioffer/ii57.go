@@ -1,4 +1,4 @@
-package ac
+package jianzhioffer
 
 func findContinuousSequence(target int) [][]int {
 	ans := [][]int{}

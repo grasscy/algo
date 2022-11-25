@@ -1,4 +1,4 @@
-package ac
+package jianzhioffer
 
 func minCost(costs [][]int) int {
 	dp := initArray(len(costs)+1, 3)

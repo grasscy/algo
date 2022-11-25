@@ -1,4 +1,4 @@
-package ac
+package jianzhioffer
 
 func twoSum(nums []int, target int) []int {
 	i, j := 0, len(nums)-1
