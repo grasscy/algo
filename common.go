@@ -103,3 +103,10 @@ func initArray(m, n int) [][]int {
 	}
 	return ret
 }
+
+func abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
