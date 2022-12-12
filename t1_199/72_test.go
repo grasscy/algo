@@ -1,4 +1,4 @@
-package algo
+package t1_199
 
 import "testing"
 
