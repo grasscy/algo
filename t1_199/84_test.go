@@ -1,4 +1,4 @@
-package algo
+package t1_199
 
 import "testing"
 
@@ -11,6 +11,7 @@ func Test_largestRectangleArea(t *testing.T) {
 		args args
 		want int
 	}{
+		{"", args{[]int{2, 1, 2}}, 3},
 		{"", args{[]int{2, 1, 5, 6, 2, 3}}, 10},
 	}
 	for _, tt := range tests {

@@ -1,4 +1,4 @@
-package algo
+package t1_199
 
 import "testing"
 
@@ -11,11 +11,12 @@ func Test_maximalRectangle(t *testing.T) {
 		args args
 		want int
 	}{
-		{"", args{[][]byte{{1, 0, 1, 0, 0}, {1, 0, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 0, 0, 1, 0}}}, 6},
+		{"", args{[][]byte{{'1', '1'}}}, 2},
+		{"", args{[][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}}}, 6},
 		{"", args{[][]byte{}}, 0},
-		{"", args{[][]byte{{0}}}, 0},
-		{"", args{[][]byte{{1}}}, 1},
-		{"", args{[][]byte{{0, 0}}}, 0},
+		{"", args{[][]byte{{'0'}}}, 0},
+		{"", args{[][]byte{{'1'}}}, 1},
+		{"", args{[][]byte{{'0', '0'}}}, 0},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
