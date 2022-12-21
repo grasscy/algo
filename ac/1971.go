@@ -1,4 +1,4 @@
-package algo
+package ac
 
 var to map[int][]int
 var vis []bool
